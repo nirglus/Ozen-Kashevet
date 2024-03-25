@@ -21,17 +21,17 @@ export default function Navbar(props) {
                 <button className="flex justify-end w-full text-3xl pr-2" onClick={collapseHandler}><GoSidebarExpand /></button>
                 <ul>
                     <NavLink to='/auth'>
-                        <li className="flex justify-center">Auth</li>
+                        <li className="flex justify-center hover:bg-red-100">Auth</li>
                     </NavLink>
                     <NavLink to='/chat'>
-                        <li className="flex justify-center">Message</li>
+                        <li className="flex justify-center hover:bg-red-100">Message</li>
                     </NavLink>
                     {user && Object.keys(user).length > 0 && (
                         <>
                             <NavLink to='/dashboard'>
-                                <li className="flex justify-center">Dashboard</li>
+                                <li className="flex justify-center hover:bg-red-100">Dashboard</li>
                             </NavLink>
-                            <button className="flex justify-center w-full mt-auto" onClick={logOut}>Log Out</button>
+                            <button className="flex justify-center w-full mt-auto hover:bg-red-100" onClick={logOut}>Log Out</button>
                         </>
                     )}
                 </ul>
