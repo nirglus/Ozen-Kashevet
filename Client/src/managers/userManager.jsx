@@ -16,6 +16,9 @@ export default function UserProvider({children}) {
       try {
         const response = await axios.post(`${APIBaseUrl}/users/register`, userData);
         console.log('Registration successful');
+        localStorage.setItem("token", response.data.token);
+        setUserIn(true)
+        setUser(response.data.user);
       } catch (error) {
         console.error('Registration failed:', error);
       }
