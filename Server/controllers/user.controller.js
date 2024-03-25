@@ -4,13 +4,11 @@ const {generateToken} = require("../utils/jwt");
 
 const register = async (req, res)=>{
     try {
-        const {email, password, user_name} = req.body;
-        const hash = await bcrypt.hash(password, 10);
-        const newUser = new User({email, password: hash, user_name});
+        const body = req.body;
+        const hash = await bcrypt.hash(body.password, 10);
+        const newUser = new User({...body, password: hash,});
         await newUser.save();
         const token = generateToken({id: newUser._id, email: newUser.email, role:newUser.role})
-        req.user = newUser;
-        req.token = token;
         res.send({message: "User registered!", user: newUser, token: token})
     } catch (error) {
         console.log(error);
