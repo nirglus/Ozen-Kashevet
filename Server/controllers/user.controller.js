@@ -57,7 +57,7 @@ const getUsers = async (req, res) => {
     const role = req.query.role;
     try {
         let users;
-        let projection = { user_name: 1, email: 1, bio: 1, gender: 1, _id: 0 }; 
+        let projection = { user_name: 1, email: 1, bio: 1, gender: 1, _id: 1 }; 
         
         if (role === 'therapist') {
             users = await User.find({ role: 'therapist' }, projection);

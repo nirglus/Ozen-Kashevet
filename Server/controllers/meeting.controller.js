@@ -12,9 +12,15 @@ const createMeeting = async(req, res) =>{
 }
 
 const getMeeting = async(req, res) =>{
-    const query = req.query;
+    const therapist_id = req.query.therapist_id;
+    const user_id = req.query.user_id;
+    let meeting;
     try {
-        const meeting = await Meeting.findOne(query)
+        if(therapist_id){
+            meeting = await Meeting.find({therapist_id})
+        } else{
+            meeting = await Meeting.find({user_id})
+        }
         if(meeting){
             return res.send({data: meeting});
         }
@@ -26,11 +32,12 @@ const getMeeting = async(req, res) =>{
 
 const updateMeeting = async (req, res) => {
     const meetID = req.params.id;
-    const { body } = req.body;
+    const body = req.body;
     try {
         const meeting = await Meeting.findByIdAndUpdate(meetID, body, { new: true }); 
         res.send({ data: meeting });
     } catch (error) {
+        console.log(error);
         res.status(400).send("Error");
     }
 };
