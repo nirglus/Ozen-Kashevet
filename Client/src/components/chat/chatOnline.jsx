@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function chatPage() {
+export default function chatOnline() {
   return (
     <div>
       
