@@ -4,7 +4,7 @@ import ChatRoom from '../../components/chat/chatRoom'
 import ChatOnline from '../../components/chat/chatOnline'
 import axios from "axios";
 import { io } from "socket.io-client"
-import APIBaseUrl from '../../config/baseUrl'
+// import { APIBaseUrl } from '../../config/baseUrl';
 
 
 export default function chatPage() {
