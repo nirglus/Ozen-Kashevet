@@ -70,7 +70,7 @@ export default function UserProvider({children}) {
       localStorage.removeItem("token")
       setUser({})
       setUserIn(false)
-      alert("you log out");
+      console.log("you logged out");
     }
     
     const share = {
