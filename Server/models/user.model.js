@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     bio: {type: String, required: true},
     gender: {type: String, required: true},
     profileImg: {type: String}
-})
+}, {timestamps: true})
 
 const User = mongoose.model("User", userSchema);
 
