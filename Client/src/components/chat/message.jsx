@@ -1,10 +1,8 @@
 import React from 'react'
 import messages from '../../pages/messages'
-
-import {format} from "timeago.js"
+import "./messages.css"
 
 export default function Messege({messages , own}) {
-  console.log(messages);
   return (
     <div className={own? "messege own" : "messege"}>
       <div className="messegeTop">

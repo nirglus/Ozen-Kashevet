@@ -6,7 +6,7 @@ import axios from "axios";
 import { io } from "socket.io-client"
 import { UserContext } from '../../managers/userManager';
 import { APIBaseUrl } from '../../config/baseUrl';
-
+import "./chatpage.css"
 
 export default function chatPage() {
     const [conversations, setConversations] = useState([]);
@@ -16,7 +16,7 @@ export default function chatPage() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef()
-    const { user } = useContext(UserContext)
+    const { user , token} = useContext(UserContext)
     const scrollRef = useRef()
     //get messages
     //!copied to chatRoom
@@ -25,7 +25,7 @@ export default function chatPage() {
         socket.current.on("getMessage", data => {
             setArrivalMessages({
                 sender: data.senderId,
-                text: data.text,
+                message_content: data.message_content,
                 createdAt: Date.now(),
             })
         })
@@ -48,7 +48,6 @@ export default function chatPage() {
         })
     }
         , [user])
-    console.log(onlineUsers);
 
     //! copied to chatPrev
     useEffect(() => {
@@ -66,7 +65,6 @@ export default function chatPage() {
         };
         getsConverstions();
     }, [user.id]);
-    console.log(conversations);
     //! copied to chatRoom
     useEffect(() => {
         const getMessages = async () => {
@@ -79,24 +77,26 @@ export default function chatPage() {
         };
         getMessages();
     }, [currentChat]);
-
+    console.log(currentChat);
     //!copied to  chat Room
     const handleSubmit = async (e) => {
         e.preventDefault()
         const mess = {
-            sender: user.id,
-            text: newMessages,
-            conversetionId: currentChat._id
+            message_content: newMessages,
+            room_id: currentChat._id
         }
         const receiverId = currentChat.members.find(member => member !== user.id)
         socket.current.emit("sendMessage", {
             senderId: user.id,
             receiverId,
-            text: newMessages
+            message_content: newMessages
         })
         try {
-            const res = await axios.post(`${APIBaseUrl}/mess`, mess);
-            console.log(res);
+            const res = await axios.post(`${APIBaseUrl}/messages`, mess , {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
             setMessages([...messages, res.data]);
             setNewMessages("");
         } catch (err) {
@@ -111,7 +111,7 @@ export default function chatPage() {
     return (
         <>
             <div className="messengers">
-                <div className="border p-8 flex-1 h-screen">
+                <div className="chatMenu">
                     <div className="chatMenuWarpper">
                         <input
                             type="text"
@@ -125,7 +125,7 @@ export default function chatPage() {
                         ))}
                     </div>
                 </div>
-                <div className="border p-8 flex-three h-screen">
+                <div className="chatBox">
                     <div className="chatBoxWarpper">
                         {currentChat ? (
                             <>
@@ -153,11 +153,11 @@ export default function chatPage() {
                         )}
                     </div>
                 </div>
-                {/* <div className="border p-8 flex-50 h-screen">
+                <div className="chatOnline">
                     <div className="chatOnlineWarpper">
                         <ChatOnline onlineUsers={onlineUsers} currentId={user.id} setCurrentChat={setCurrentChat} />
                     </div>
-                </div> */}
+                </div>
             </div>
         </>
     );
