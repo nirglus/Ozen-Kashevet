@@ -20,7 +20,7 @@ export default function Auth() {
                 <div className=" w-full justify-center gap-2 flex">
                     <p className="mt-10 text-center text-sm text-gray-500">
                         {
-                            formMode ? "Already have an account? " : "Don't have an account? "
+                            formMode ? "Don't have an account? " : "Already have an account? "
                         }
                         <button onClick={changeMode} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             {
