@@ -12,7 +12,7 @@ function App() {
     setIsCollapsed(!isCollapsed);
   }
 
-  const contentMargin = isCollapsed ? '' : 'ml-40';
+  const contentMargin = isCollapsed ? '' : 'ml-72 w-4/5';
 
   return (
     <BrowserRouter>
