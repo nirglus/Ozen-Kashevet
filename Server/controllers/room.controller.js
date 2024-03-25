@@ -18,6 +18,7 @@ const getRoom = async(req,res)=>{
     try{
         const converstaion = await Room.find({
             members: {$in:[req.user.id]}
+            
         });
         res.status(200).json(converstaion)
     }catch(err){

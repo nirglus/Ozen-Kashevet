@@ -3,6 +3,7 @@ const messages = require("./routes/message.routes");
 const room = require("./routes/room.routes")
 const user = require("./routes/user.routes");
 const meeting = require("./routes/meeting.routes");
+
 const cors = require("cors")
 const app = express();
 app.use(cors())
