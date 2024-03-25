@@ -2,7 +2,7 @@ const { User } = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const {generateToken} = require("../utils/jwt");
 
-const register = async (req, res, next)=>{
+const register = async (req, res)=>{
     try {
         const {email, password, user_name} = req.body;
         const hash = await bcrypt.hash(password, 10);
@@ -11,7 +11,7 @@ const register = async (req, res, next)=>{
         const token = generateToken({id: newUser._id, email: newUser.email, role:newUser.role})
         req.user = newUser;
         req.token = token;
-        next();
+        res.send({message: "User registered!", user: newUser, token: token})
     } catch (error) {
         console.log(error);
         res.status(400).send("Error");
@@ -52,7 +52,7 @@ const showUser = async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   };
-  
+
 const getUsers = async (req, res) => {
     const role = req.query.role;
     try {
