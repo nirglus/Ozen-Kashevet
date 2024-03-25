@@ -10,8 +10,8 @@ app.use(express.json())
 
 app.use("/api/v1/messages" , messages);
 app.use("/api/v1/room" , room);
-app.use("api/v1/users", user);
-app.use("api/v1/meetings", meeting);
+app.use("/api/v1/users", user);
+app.use("/api/v1/meetings", meeting);
 
 
 
