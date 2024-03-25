@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     birth_date: {type: Date, required: true},
     bio: {type: String, required: true},
     gender: {type: String, required: true},
+    isOnline: {type: Boolean, default: false},
     profileImg: {type: String}
 }, {timestamps: true})
 
