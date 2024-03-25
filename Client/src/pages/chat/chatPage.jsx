@@ -18,7 +18,6 @@ export default function chatPage() {
     const socket = useRef()
     const { user } = useContext(UserContext)
     const scrollRef = useRef()
-    console.log(user);
     //get messages
     //!copied to chatRoom
     useEffect(() => {
@@ -67,7 +66,7 @@ export default function chatPage() {
         };
         getsConverstions();
     }, [user.id]);
-
+    console.log(conversations);
     //! copied to chatRoom
     useEffect(() => {
         const getMessages = async () => {
@@ -111,17 +110,6 @@ export default function chatPage() {
 
     return (
         <>
-            {/* <main className='flex w-screen'>
-                <div className='border p-8 flex-1 h-screen' id='chatPrev'>
-                    <ChatPrev setCurrentChat={setCurrentChat} />
-                </div>
-                <div className='border p-8 flex-three h-screen' id='chatRoom'>
-                    <ChatRoom currentChat={setCurrentChat} />
-                </div>
-                <div className='border p-8 flex-50 h-screen' id='onlines'>
-                    <ChatOnline />
-                </div>
-            </main> */}
             <div className="messengers">
                 <div className="border p-8 flex-1 h-screen">
                     <div className="chatMenuWarpper">

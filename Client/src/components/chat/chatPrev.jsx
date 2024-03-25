@@ -1,41 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import ChatTitle from './chatTitle'
-import ChatCard from './chatCard'
+import React, { useEffect, useState } from 'react';
+import logo from '../../assets/img/Anonimos.png'
 import axios from 'axios';
-// import { APIBaseUrl } from '../config/baseUrl';
+import { APIBaseUrl } from '../../config/baseUrl';
 
-export default function ChatPrev({ setCurrentChat }) {
-  //TODO: replace with real user
-  const user = {}
-  //TODO: replace with real conversation
-  const [conversations, setConversations] = useState([{}]);
-
+export default function ChatPrev({ conversation, currentUser }) {
+  const [user, setUser] = useState(null);
   useEffect(() => {
-    const getsConverstions = async () => {
+    const friendId = conversation.members.find(m => m !== currentUser.id);
+    const getUser = async () => {
       try {
-        const res = await axios.get(`${APIBaseUrl}/convers/${user.id}`);
-        setConversations(res.data);
+        const res = await axios.get(`${APIBaseUrl}/users?userId=${friendId}`);
+        setUser(res.data);
       } catch (err) {
         console.log(err);
+        setUser(null);
       }
     };
-    getsConverstions();
-  }, [user.id]);
-
+    if (friendId) {
+      getUser();
+    }
+  }, [currentUser, conversation]);
+  console.log(user);
   return (
-    <>
-      <section className='flex flex-col'>
-        <div className='h-15 border '>
-          <ChatTitle />
-        </div>
-        <div className=''>
-          {conversations.map((c, cINdex) => (
-            <div onClick={() => setCurrentChat(c)} key={cINdex}>
-              <ChatCard conversation={c} currentUser={user} />
-            </div>
-          ))}
-        </div>
-      </section>
-    </>
-  )
+    <div className='conversation'>
+      <img className="conversationsimg" alt="" src={user?.profileImg? user.profileImg :logo} />
+      <span className="conversationText">{user?.username}</span>
+    </div>
+  );
 }
