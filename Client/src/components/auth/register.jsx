@@ -1,18 +1,58 @@
-import React, { useContext } from 'react'
+import React, { Fragment,useState, useContext } from 'react'
 import { UserContext } from '../../managers/userManager'
+import logo from '../../assets/img/logoWithText.png'
+import logo2 from '../../assets/img/justLogo.png'
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+
+const people = [
+    {
+        id: 0,
+        name: 'Select gender',
+        avatar:
+            '',
+            value:'M'
+    },
+    {
+        id: 1,
+        name: 'Male',
+        avatar:
+            'https://cdn.icon-icons.com/icons2/38/PNG/512/maleuser_4943.png',
+            value:'M'
+    },
+    {
+        id: 2,
+        name: 'Female',
+        avatar:
+            'https://cdn4.iconfinder.com/data/icons/budicon-user-solid/25/female-user-512.png',
+            value:'F'
+    },
+    {
+        id: 3,
+        name: 'Other',
+        avatar:
+            'https://media.istockphoto.com/id/1300219145/vector/unisex-washroom-accessibility-icon.jpg?s=612x612&w=0&k=20&c=EVvjtcwm-QAKhZ1cZz83RTSA03lDMpIeeNCAy4ZoWuM=',
+            value:'O'
+    },
+]
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 export default function Register() {
+    const [selected, setSelected] = useState(people[0])
     const { handleRegister } = useContext(UserContext)
     return (
-        <div className='w-screen h-fit p-12'>
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                {/* <img
-                    className="mx-auto h-10 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+        <div className='w-screen  p-5'>
+            <div className="  ">
+                <img
+                    className="mx-auto h-15 rounded-2xl "
+                    src={logo2}
                     alt="Your Company"
-                /> */}
+                />
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign up
+                    Create your account
                 </h2>
             </div>
 
@@ -94,7 +134,74 @@ export default function Register() {
                         </div>
                     </div>
 
-                    <span>gender:</span>
+                    <label className="block text-sm font-medium leading-6 text-gray-900 ">
+                        gender
+                    </label>
+                    <Listbox value={selected} onChange={setSelected}>
+                        {({ open }) => (
+                            <>
+                                <div className="relative mt-2">
+                                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                                        <span className="flex items-center">
+                                            <img src={selected.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+                                            <span className="ml-3 block truncate">{selected.name}</span>
+                                        </span>
+                                        <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        </span>
+                                    </Listbox.Button>
+
+                                    <Transition
+                                        show={open}
+                                        as={Fragment}
+                                        leave="transition ease-in duration-100"
+                                        leaveFrom="opacity-100"
+                                        leaveTo="opacity-0"
+                                    >
+                                        <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            {people.map((person) => (
+                                                
+                                                <Listbox.Option
+                                                    key={person.id}
+                                                    className={({ active }) =>
+                                                        classNames(
+                                                            active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                                            'relative cursor-default select-none py-2 pl-3 pr-9'
+                                                        )
+                                                    }
+                                                    value={person}
+                                                >
+                                                    {({ selected, active }) => (
+                                                        <>
+                                                            <div className="flex items-center">
+                                                                <img src={person.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+                                                                <span
+                                                                    className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                >
+                                                                    {person.name}
+                                                                </span>
+                                                            </div>
+
+                                                            {selected ? (
+                                                                <span
+                                                                    className={classNames(
+                                                                        active ? 'text-white' : 'text-indigo-600',
+                                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                    )}
+                                                                >
+                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                </span>
+                                                            ) : null}
+                                                        </>
+                                                    )}
+                                                </Listbox.Option>
+                                            ))}
+                                        </Listbox.Options>
+                                    </Transition>
+                                </div>
+                            </>
+                        )}
+                    </Listbox>
                     <div>
                         <label htmlFor='psycho'>man</label>
                         <input id='psycho' type='radio' name='gender' value={"M"}></input>
@@ -103,7 +210,9 @@ export default function Register() {
                         <label htmlFor='user'>other</label>
                         <input id='user' type='radio' name='gender' value={"O"}></input>
                     </div>
-                    <span>Role:</span>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                        Role
+                    </label>
                     <div>
                         <label htmlFor='psycho'>Psycho</label>
                         <input id='psycho' type='radio' name='role' value={"PF"}></input>
