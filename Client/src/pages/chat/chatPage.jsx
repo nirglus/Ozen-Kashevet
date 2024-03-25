@@ -15,9 +15,7 @@ export default function chatPage() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef()
-    const { user } = {
-        
-    }
+    const { user } = {}
     const scrollRef = useRef()
 
     //get messages
