@@ -31,7 +31,14 @@ export default function chatPage() {
         })
     }
         , [])
-
+        const handleChatClick = (clickedChat) => {
+            if (currentChat && currentChat === clickedChat) {
+                // Clicked the same chat again, set currentChat to null
+                setCurrentChat(null);
+            } else {
+                setCurrentChat(clickedChat);
+            }
+        };
     //if message live 
     //!copied to chatRoom
     useEffect(() => {
@@ -107,7 +114,6 @@ export default function chatPage() {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages]);
-
     return (
         <>
             <div className="messengers">
@@ -118,10 +124,10 @@ export default function chatPage() {
                             placeholder="search for friends"
                             className="chatMenuInput"
                         />
-                        {conversations.map((c, cINdex) => (
-                            <div onClick={() => setCurrentChat(c)} key={cINdex}>
-                                <ChatPrev conversation={c} currentUser={user} />
-                            </div>
+                        {conversations.map((c) => (
+                             <div onClick={() => handleChatClick(c)} >
+                             <ChatPrev conversation={c} currentUser={user} />
+                         </div>
                         ))}
                     </div>
                 </div>

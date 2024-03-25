@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../../assets/img/Anonimos.png'
 import "./messages.css"
+import {format} from "timeago.js"
 
 export default function ChatRoom({messages , own}) {
   return (
@@ -11,7 +12,7 @@ export default function ChatRoom({messages , own}) {
           {messages?.message_content}
         </p>
         </div>
-      <div className="messegeButtom">{messages?.createdAt}</div>
+      <div className="messegeButtom">{format(messages?.createdAt)}</div>
     </div>
   )
 }

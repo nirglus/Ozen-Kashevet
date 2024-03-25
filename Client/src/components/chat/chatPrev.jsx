@@ -9,7 +9,7 @@ export default function ChatPrev({ conversation, currentUser }) {
     const friendId = conversation.members.find(m => m !== currentUser.id);
     const getUser = async () => {
       try {
-        const res = await axios.get(`${APIBaseUrl}/users?userId=${friendId}`);
+        const res = await axios.get(`${APIBaseUrl}/users/findUser?userId=${friendId}`);
         setUser(res.data);
       } catch (err) {
         console.log(err);

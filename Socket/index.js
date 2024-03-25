@@ -33,13 +33,18 @@ io.on("connection", (socket) => {
     })
 
     //send and get message
-    socket.on("sendMessage" , ({senderId , receiverId , message_content})=>{
+    socket.on("sendMessage", ({ senderId, receiverId, message_content }) => {
         const user = getUser(receiverId);
-        io.to(user.socketId).emit("getMessage",{
-            senderId,
-            message_content,
-        })
-    })  
+        if (user?.socketId) {
+            io.to(user.socketId).emit("getMessage", {
+                senderId,
+                message_content,
+            });
+        } else {
+            console.log("cant send");
+            // Handle case where receiver is not found, maybe send an error message
+        }
+    });
 
     //when disconects
     socket.on("disconnect" , ()=>{
