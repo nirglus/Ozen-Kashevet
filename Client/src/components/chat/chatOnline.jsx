@@ -5,7 +5,7 @@ import { APIBaseUrl } from '../../config/baseUrl';
 import "./chatOnline.css"
 import { UserContext } from '../../managers/userManager';
 export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
-  const { user } = useContext(UserContext)
+  const { user , token } = useContext(UserContext)
   const [Psyco , setPsyco] = useState([]);
   const [therapist , setTherapist] = useState([]);
   const [onlineUser , setOnlineUsers] = useState([])
@@ -43,10 +43,10 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
   
   useEffect(() => {
     const filteredFriends = therapist.filter(Psyco => {
-      return onlineTherapist.some(onlineTherapist => onlineTherapist.userId === Psyco._id);
+      return onlineUsers.some(onlineTherapist => onlineTherapist.userId === Psyco._id);
     });
-    setOnlineUsers(filteredFriends);
-  }, [Psyco, onlineTherapist]);
+    setOnlineTherapist(filteredFriends);
+  }, [Psyco, onlineUsers]);
 
   useEffect(() => {
     const filteredFriends = Psyco.filter(Psyco => {
@@ -56,20 +56,30 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
   }, [Psyco, onlineUsers]);
   const handleClick = async(user)=>{
     try{
-      const res = await axios.get(`${APIBaseUrl}/room/find/${user._id}`)
+      const res = await axios.get(`${APIBaseUrl}/room/find/${user._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       if (res.data) {
         setCurrentChat(res.data)
       }else{
-        const res = await axios.post(`${APIBaseUrl}/room`, {
-          reciverId: user._id
-        });
+        const res = await axios.post(`${APIBaseUrl}/room/`, 
+            {
+              reciverId: user._id,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+        })
         setCurrentChat(res.data);
     }}
     catch(err){
       console.log(err);
     }
   }
-  console.log(onlineUser);
+  console.log(onlineTherapist);
   return (
     <div className='chatOnline'>
       {onlineUser.map((o)=>(
@@ -82,7 +92,17 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
         <span  className="chatOnlineName">{o.user_name}</span>
       </div>
       ))}
-      
+        <h1>docktors</h1> 
+      {onlineTherapist.map((o)=>(
+      <div className="chatOnlineFriends">
+        <div className="chatOnlineImgContainer">
+            <img src={o?.profileImg? o.profileImg :logo} alt="" className='chatOnlineImg'/>
+            <div className="cahatOnlineBadge">
+            </div>
+        </div>
+        <span  className="chatOnlineName">{o.user_name}</span>
+      </div>
+      ))}
     </div>
   )
 }
