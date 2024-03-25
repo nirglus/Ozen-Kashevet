@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import logo from '../../assets/img/Anonimos.png'
 import { APIBaseUrl } from '../../config/baseUrl';
-
+// import "chatOnline.css"
 export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
-  const [friends , setFriend] = useState([]);
+  const [Psyco , setPsyco] = useState([]);
   const [onlineFriends , setOnlineFriends] = useState([])
   useEffect(()=>{
-    const getFriends = async()=>{
-      const res = await axios.get(`${APIBaseUrl}/users/`)
-      setFriend(res.data)
+    const getPsyco = async()=>{
+      const res = await axios.get(`${APIBaseUrl}/users/find`)
+      setPsyco(res.data.users)
     }
-    getFriends()
+    getPsyco()
   },[currentId])
+  console.log(Psyco);
   useEffect(() => {
-    const filteredFriends = friends.filter(friend => {
-      return onlineUsers.some(onlineUser => onlineUser.userId === friend._id);
+    const filteredFriends = Psyco.filter(Psyco => {
+      return onlineUsers.some(onlineUser => onlineUser.userId === Psyco._id);
     });
     setOnlineFriends(filteredFriends);
-  }, [friends, onlineUsers]);
+  }, [Psyco, onlineUsers]);
+
   const handleClick = async(user)=>{
     try{
-      const res = await axios.get(`${APIBaseUrl}/convers/find/${currentId}/${user._id}`)
+      const res = await axios.get(`${APIBaseUrl}/room/find/${user._id}`)
       if (res.data) {
         setCurrentChat(res.data)
       }else{
-        const res = await axios.post(`${APIBaseUrl}/convers`, {
-          SenderId: currentId,
+        const res = await axios.post(`${APIBaseUrl}/room`, {
           reciverId: user._id
         });
         setCurrentChat(res.data);
@@ -34,6 +36,7 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
       console.log(err);
     }
   }
+  console.log(onlineFriends);
   return (
     <div className='chatOnline'>
       {onlineFriends.map((o)=>(
@@ -43,7 +46,7 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
             <div className="cahatOnlineBadge">
             </div>
         </div>
-        <span  className="chatOnlineName">{o.username}</span>
+        <span  className="chatOnlineName">{o.user_name}</span>
       </div>
       ))}
     </div>
