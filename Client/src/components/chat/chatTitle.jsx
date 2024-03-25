@@ -1,9 +1,13 @@
 import React from 'react'
 
-export default function chatTitle() {
+export default function ChatTitle() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <input
+        type="text"
+        placeholder="search for friends"
+        className="chatMenuInput"
+      />
+    </>
   )
 }
