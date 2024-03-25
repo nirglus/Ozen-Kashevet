@@ -31,6 +31,7 @@ const login = async (req, res) =>{
         };
         res.status(401).send("Email or password are incorrect");
     } catch (error) {
+        console.log({error});
         res.status(400).send("Error");
     }
 }

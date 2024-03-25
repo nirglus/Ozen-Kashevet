@@ -7,6 +7,6 @@ const meetingSchema = new mongoose.Schema({
     date: {type: Date, required: true},
 }, {timestamps: true})
 
-const Meeting = mongoose.model("User", meetingSchema);
+const Meeting = mongoose.model("Meeting", meetingSchema);
 
 module.exports = { Meeting };
