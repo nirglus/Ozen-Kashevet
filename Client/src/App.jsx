@@ -6,10 +6,8 @@ import { useState } from 'react'
 function App() {
 
   return (
-    <>
-      <h1 className='text-yellow-700'>hello world</h1>
-      <h1>fgyhdfy</h1>
-    </>
+    <main>
+    </main>
   )
 }
 
