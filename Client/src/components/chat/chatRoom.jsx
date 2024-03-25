@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { APIBaseUrl } from '../../config/baseUrl';
-
-export default function ChatRoom({ conversation, currentUser }) {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const friendId = conversation.members.find(m => m !== currentUser.id);
-    const getUser = async () => {
-      try {
-        const res = await axios.get(`${APIBaseUrl}/users?userId=${friendId}`);
-        setUser(res.data);
-      } catch (err) {
-        console.log(err);
-        setUser(null);
-      }
-    };
-    if (friendId) {
-      getUser();
-    }
-  }, [currentUser, conversation]);
-  console.log(user);
+import React from 'react'
+import logo from '../../assets/img/Anonimos.png'
+export default function Messege({messages , own}) {
+  console.log(messages);
   return (
-    <div className='conversation'>
-      <img className="conversationsimg" alt="" src={user?.profileImg? user.profileImg :logo} />
-      <span className="conversationText">{user?.username}</span>
+    <div className={own? "messege own" : "messege"}>
+      <div className="messegeTop">
+        <img src={logo} alt="" className="messegeImg"/>
+        <p className="messegeText">
+          {messages?.text}
+        </p>
+        </div>
+      <div className="messegeButtom">{messages?.createdAt}</div>
     </div>
-  );
+  )
 }
