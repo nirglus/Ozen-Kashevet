@@ -3,11 +3,6 @@
 @import "tailwindcss/utilities";
 
 
-#root {
-  display: flex;
-  flex: 2
-}
-
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
