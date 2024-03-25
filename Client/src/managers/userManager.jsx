@@ -1,61 +1,86 @@
-import { createContext, useState } from "react";
+import {React, useEffect, createContext, useState} from 'react'
+import { APIBaseUrl } from '../config/baseUrl';
 import axios from 'axios';
 
 export const UserContext = createContext({});
 
+export default function UserProvider({children}) {
+  const [userData , setUserData] = useState([]);
+  const [user , setUser] = useState({});
+  const [userIn , setUserIn] = useState(false);
 
-
-export default function userManager({ children }) {
-    const [userRole, setUserRole] = useState('default');
-    const [userState, setUserState] = useState({ id: '' });
-    const [userToken, setUserToken] = useState('');
-
-
-    const signUp = async ({ email, userName, password, role }) => {
-        const sentData = ({ email, userName, password, role });
-
-
-        try {
-            const response = axios.post('http://localhost:3000/OK/Register');
-            const recievedData = await response.json();
-            console.log(recievedData);
-            setUserState(receivedData.user);
-            setUserToken(receivedData.token);
-            setUserRole(recievedData.role)
+    const token = localStorage.getItem("token");
+    
+    const handleRegister = async (e) => {
+      e.preventDefault()
+      try {
+        const response = await axios.post(`${APIBaseUrl}/users/register`, userData);
+        console.log('Registration successful');
+      } catch (error) {
+        console.error('Registration failed:', error);
+      }
+    };
+    
+    const handleLogin = async (e) => {
+      e.preventDefault()
+      try {
+        const response = await axios.post(`${APIBaseUrl}/users/login`, userData);
+        if(response.data.message ==="User not found"){
+          return alert("user not found")
         }
-        catch (error) {
-            console.log('Failed To Sign Up (client error)', error);
-
-        }
+        console.log('Login successful');
+        localStorage.setItem("token", response.data.token);
+        setUserIn(true)
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Login failed:', error);
+      }
+    };
+    
+    const getUser = async()=>{
+      console.log(token);
+      try {
+        const res = await axios.get(`${APIBaseUrl}/users/showUser`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setUser(res.data);
+        setUserIn(true)
+        console.log(res.data)
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-
-    const signIn = async ({ userName, password }) => {
-        const sentData = { userName, password }
-
-        try {
-            const response = axios.post('http://localhost:3000/OK/Login');
-            const recievedData = await response.json();
-            console.log(recievedData);
-        } catch (error) {
-            console.log('Failed To Sign In (client error)', error);
-        }
+    
+    useEffect(()=>{
+      if(token){
+        getUser();
+      }
+    },[]);
+    
+    const changeHandler= (e)=>{
+      userData[e.target.name] = e.target.value;
+      setUserData({ ...userData });
+      console.log(userData);
     }
-
-    const getUser = async (userToken) => {
-        try {
-            const res = await axios.get(`${baseURL}/users`, { headers });
-            console.log(user);
-            setUserState(res.data.user);
-        } catch (error) {
-            console.error("Failed to get user:", error);
-        }
+    
+    const logOut = ()=>{
+      localStorage.removeItem("token")
+      setUser({})
+      setUserIn(false)
+      alert("you log out");
     }
-
+    
+    const share = {
+      changeHandler , handleLogin , handleRegister , user ,logOut, userID:user.id ,
+       userIn, setUser, token , getUser
+    }
+    
     return (
-        <UserContext.Provider value={{ signIn, signUp , getUser }}>
-            {children}
-        </UserContext.Provider>
-    )
-
+      <UserContext.Provider value={share}>
+        {children}
+      </UserContext.Provider>
+  );
 }
