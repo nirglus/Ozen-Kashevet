@@ -20,6 +20,9 @@ export default function Navbar(props) {
                 <NavLink to='/chat'>
                     <li>Message</li>
                 </NavLink>
+                <NavLink to='/dashboard'>
+                    <li>Dashboard</li>
+                </NavLink>
             </ul>
 
         </nav>)

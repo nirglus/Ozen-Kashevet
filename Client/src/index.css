@@ -2,6 +2,16 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer components {
+  .menuButton {
+    @apply border border-black p-2 w-52 h-20
+  }
+
+  .menuButton:hover {
+    
+  }
+
+}
 
 
 /* :root {
