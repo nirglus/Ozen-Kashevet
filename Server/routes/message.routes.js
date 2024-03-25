@@ -4,5 +4,5 @@ const {auth , authorize} = require("../middleware/auth")
 const router = express.Router();
 
 router.post("/" , auth,sendAMessege)
-router.get("/:conversetionId" , getMessage)
+router.get("/:room_id" , getMessage)
 module.exports = router;

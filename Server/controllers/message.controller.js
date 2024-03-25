@@ -3,7 +3,8 @@ const {Message} = require("../models/message.model")
 const sendAMessege = async(req,res)=>{
     const newMessege = new Message( 
         {sender: req.user.id,
-        body: req.body.body}
+        room_id: req.body.room_id,
+        message_content: req.body.message_content}
         )
     try{
         const message = await newMessege.save();
@@ -12,6 +13,7 @@ const sendAMessege = async(req,res)=>{
         res.status(500).json(err)
     }
 }
+
 const getMessage = async(req,res)=>{
     try{
         const message = await Message.find({
@@ -22,4 +24,5 @@ const getMessage = async(req,res)=>{
         res.status(500).json(err)
     }
 }
+
 module.exports = {sendAMessege ,getMessage}
