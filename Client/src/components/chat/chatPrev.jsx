@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ChatTitle from './chatTitle'
 import ChatCard from './chatCard'
 import axios from 'axios';
-import APIBaseUrl from '../../config/baseUrl';
+// import { APIBaseUrl } from '../config/baseUrl';
 
 export default function ChatPrev({ setCurrentChat }) {
   //TODO: replace with real user

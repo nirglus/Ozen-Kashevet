@@ -6,10 +6,7 @@ import { UserContext } from "../../managers/userManager";
 
 
 export default function Auth() {
-
-    const { handleRegister, handleLogin } = useContext(UserContext)
-
-    const [formAction, setFormAction] = useState('http://localhost:2500/api/v1/users/login')
+    const { handleRegister, handleLogin ,changeHandler } = useContext(UserContext)
     const [formMode, setFormMode] = useState(false)
 
     const changeMode = (e) => {
@@ -18,7 +15,7 @@ export default function Auth() {
     }
     return (
         <section className="h-screen flex justify-center items-center px-10">
-            <form className="AuthContainer border-solid border-black border w-4/5 h-fit flex flex-wrap">
+            <form className="AuthContainer border-solid border-black border w-4/5 h-fit flex flex-wrap" onChange={changeHandler}>
                 {formMode ? <Login /> : <Register />}
                 <div className=" w-full justify-center gap-2 flex">
                     <button onClick={changeMode} className="">ChangeMode</button>
