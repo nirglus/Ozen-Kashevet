@@ -1,74 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react'
-import Message from './message'
-import { io } from "socket.io-client"
-import axios from 'axios'
-// import APIBaseUrl from '../../config/baseUrl'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { APIBaseUrl } from '../../config/baseUrl';
 
-
-
-
-export default function ChatRoom({ currentChat }) {
-  const socket = useRef()
-  const scrollRef = useRef()
-
-  const [arrivalMessages, setArrivalMessages] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessages, setNewMessages] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const mess = {
-      sender: user.id,
-      text: newMessages,
-      conversetionId: currentChat._id
+export default function ChatRoom({ conversation, currentUser }) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const friendId = conversation.members.find(m => m !== currentUser.id);
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${APIBaseUrl}/users?userId=${friendId}`);
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+        setUser(null);
+      }
+    };
+    if (friendId) {
+      getUser();
     }
-    const receiverId = currentChat.members.find(member => member !== user.id)
-    socket.current.emit("sendMessage", {
-      senderId: user.id,
-      receiverId,
-      text: newMessages
-    })
-    try {
-      const res = await axios.post(`${APIBaseUrl}/mess`, mess);
-      console.log(res);
-      setMessages([...messages, res.data]);
-      setNewMessages("");
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  }, [currentUser, conversation]);
+  console.log(user);
   return (
-    <>
-      <div className="chatBox">
-        <div className="chatBoxWarpper">
-          {currentChat ? (
-            <>
-              <div className="chatBoxTop">
-                {messages.map((m) => (
-                  <div ref={scrollRef}>
-                    <Message messages={m} own={m.sender === user.id} />
-                  </div>
-                ))}
-              </div>
-              <div className="fixed bottom-0">
-                <textarea
-                  placeholder="write Something"
-                  className="chatmessegeInput"
-                  onChange={(e) => setNewMessages(e.target.value)}
-                  value={newMessages}
-                ></textarea>
-                <button className="messegeSubmitButton" onClick={handleSubmit}>Send</button>
-              </div>
-            </>
-          ) : (
-            <span className="noConversation">
-              open a conversation to start a chat
-            </span>
-          )}
-        </div>
-      </div>
-      <div>
-      </div>
-    </>
-  )
+    <div className='conversation'>
+      <img className="conversationsimg" alt="" src={user?.profileImg? user.profileImg :logo} />
+      <span className="conversationText">{user?.username}</span>
+    </div>
+  );
 }

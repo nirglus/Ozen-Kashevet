@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import ChatPrev from '../../components/chat/chatPrev'
 import ChatRoom from '../../components/chat/chatRoom'
 import ChatOnline from '../../components/chat/chatOnline'
 import axios from "axios";
 import { io } from "socket.io-client"
-// import { APIBaseUrl } from '../../config/baseUrl';
+import { UserContext } from '../../managers/userManager';
+import { APIBaseUrl } from '../../config/baseUrl';
 
 
 export default function chatPage() {
@@ -15,9 +16,9 @@ export default function chatPage() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef()
-    const { user } = {}
+    const { user } = useContext(UserContext)
     const scrollRef = useRef()
-
+    console.log(user);
     //get messages
     //!copied to chatRoom
     useEffect(() => {
@@ -49,11 +50,12 @@ export default function chatPage() {
     }
         , [user])
     console.log(onlineUsers);
+
     //! copied to chatPrev
     useEffect(() => {
         const getsConverstions = async () => {
             try {
-                const res = await axios.get(`${APIBaseUrl}/room`,{
+                const res = await axios.get(`${APIBaseUrl}/room/getRooms`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -65,6 +67,7 @@ export default function chatPage() {
         };
         getsConverstions();
     }, [user.id]);
+
     //! copied to chatRoom
     useEffect(() => {
         const getMessages = async () => {
@@ -77,6 +80,7 @@ export default function chatPage() {
         };
         getMessages();
     }, [currentChat]);
+
     //!copied to  chat Room
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -107,7 +111,7 @@ export default function chatPage() {
 
     return (
         <>
-            <main className='flex w-screen'>
+            {/* <main className='flex w-screen'>
                 <div className='border p-8 flex-1 h-screen' id='chatPrev'>
                     <ChatPrev setCurrentChat={setCurrentChat} />
                 </div>
@@ -117,7 +121,56 @@ export default function chatPage() {
                 <div className='border p-8 flex-50 h-screen' id='onlines'>
                     <ChatOnline />
                 </div>
-            </main>
+            </main> */}
+            <div className="messengers">
+                <div className="border p-8 flex-1 h-screen">
+                    <div className="chatMenuWarpper">
+                        <input
+                            type="text"
+                            placeholder="search for friends"
+                            className="chatMenuInput"
+                        />
+                        {conversations.map((c, cINdex) => (
+                            <div onClick={() => setCurrentChat(c)} key={cINdex}>
+                                <ChatPrev conversation={c} currentUser={user} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="border p-8 flex-three h-screen">
+                    <div className="chatBoxWarpper">
+                        {currentChat ? (
+                            <>
+                                <div className="chatBoxTop">
+                                    {messages.map((m) => (
+                                        <div ref={scrollRef}>
+                                            <ChatRoom messages={m} own={m.sender === user.id} />
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="chatBoxButtom">
+                                    <textarea
+                                        placeholder="write Something"
+                                        className="chatmessegeInput"
+                                        onChange={(e) => setNewMessages(e.target.value)}
+                                        value={newMessages}
+                                    ></textarea>
+                                    <button className="messegeSubmitButton" onClick={handleSubmit}>Send</button>
+                                </div>
+                            </>
+                        ) : (
+                            <span className="noConversation">
+                                open a conversation to start a chat
+                            </span>
+                        )}
+                    </div>
+                </div>
+                {/* <div className="border p-8 flex-50 h-screen">
+                    <div className="chatOnlineWarpper">
+                        <ChatOnline onlineUsers={onlineUsers} currentId={user.id} setCurrentChat={setCurrentChat} />
+                    </div>
+                </div> */}
+            </div>
         </>
-    )
+    );
 }

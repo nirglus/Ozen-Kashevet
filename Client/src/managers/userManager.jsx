@@ -43,7 +43,7 @@ export default function UserProvider({children}) {
     const getUser = async()=>{
       console.log(token);
       try {
-        const res = await axios.get(`${APIBaseUrl}/users/showUser`,{
+        const res = await axios.get(`${APIBaseUrl}/users/`,{
           headers: {
             Authorization: `Bearer ${token}`
           }
