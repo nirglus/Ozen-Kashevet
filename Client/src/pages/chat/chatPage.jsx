@@ -15,7 +15,9 @@ export default function chatPage() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef()
-    const { user } = {}
+    const { user } = {
+        
+    }
     const scrollRef = useRef()
 
     //get messages
@@ -53,7 +55,11 @@ export default function chatPage() {
     useEffect(() => {
         const getsConverstions = async () => {
             try {
-                const res = await axios.get(`${APIBaseUrl}/convers/${user.id}`);
+                const res = await axios.get(`${APIBaseUrl}/room`,{
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
                 setConversations(res.data);
             } catch (err) {
                 console.log(err);
@@ -65,7 +71,7 @@ export default function chatPage() {
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const res = await axios.get(`${APIBaseUrl}/mess/${currentChat?._id}`);
+                const res = await axios.get(`${APIBaseUrl}/messages/${currentChat?._id}`);
                 setMessages(res.data);
             } catch (err) {
                 console.log(err);
