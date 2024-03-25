@@ -13,7 +13,7 @@ export default function Navbar() {
 
     if (isCollapsed === false) {
 
-        return (<nav className="animate__animated animate__slideInLeft animate__faster w-1/5 h-screen bg-red-500 z-50  ">
+        return (<nav className="animate__animated animate__slideInLeft animate__faster w-1/5 h-screen bg-red-500 z-50">
             <button onClick={collapseHandler}>close sidebar</button>
             <ul>
                 <NavLink to='/auth'>
