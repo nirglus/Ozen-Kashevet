@@ -7,9 +7,9 @@ import { UserContext } from "../../managers/userManager";
 
 export default function Auth() {
 
-    const { signUp, signIn } = useContext(UserContext)
+    const { handleRegister, handleLogin } = useContext(UserContext)
 
-    const [formAction, setFormAction] = useState('http://localhost:3000/api/v1/users/login')
+    const [formAction, setFormAction] = useState('http://localhost:2500/api/v1/users/login')
     const [formMode, setFormMode] = useState(false)
 
     const changeMode = (e) => {
