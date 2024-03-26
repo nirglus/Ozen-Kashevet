@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import 'animate.css';
 import { UserContext } from "../../managers/userManager";
@@ -8,17 +8,19 @@ import { CiLogout } from "react-icons/ci";
 
 export default function Navbar(props) {
     const { logOut, user ,userIn} = useContext(UserContext);
+    const [isOpen, setIsOpen] = useState(false);
 
     const collapseHandler = () => {
         props.setIsCollapsed(!props.isCollapsed);
+        setIsOpen(!isOpen);
     };
 
     return (
         <div>
-            <button className="fixed text-3xl pt-6" onClick={collapseHandler}>
+            <button className={!isOpen ? "fixed text-3xl pt-80" : "hidden"} onClick={collapseHandler}>
                 <GoSidebarCollapse />
             </button>
-            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-blue-400 bg-opacity-30 z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
+            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-blue-300 bg-opacity-90 z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
                 }`}>
                 <div className="flex items-center pt-6 mb-8">
                     <span className="flex items-center font-bold pl-4">
