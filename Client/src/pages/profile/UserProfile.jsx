@@ -8,6 +8,7 @@ import axios from 'axios';
 import { MdModeEditOutline } from "react-icons/md";
 import logo from '../../assets/img/Anonimos.png'
 import TherapistSchedule from '../../components/TherapistSchedule/TherapistSchedule';
+import { GrSecure } from "react-icons/gr";
 
 export default function UserProfile() {
   const { user, token , getUser }=useContext(UserContext);
@@ -68,7 +69,7 @@ console.log(user);
       onMouseLeave={() => setIsOpen(false)}
       />
       </div>
-      <h1 className='text-center font-bold'>your states is secured!</h1>
+      <h1 className='font-bold flex items-center text-center justify-center'><GrSecure />Your information is secured</h1>
       <div>
       {user.profileImg ? (
                 <div className="ProfileImageContainer">
@@ -100,10 +101,10 @@ console.log(user);
             </div>
             )}
     <div className="profile-details">
-        <h1>username: {user.user_name}</h1>
-        <p>bio: {user.bio} </p>
-        <p>birth_date: {formattedDate}</p>
-        <p>gender: {user.gender}</p>
+        <h1><b>Username:</b> {user.user_name}</h1>
+        <p><b>Bio:</b> {user.bio} </p>
+        <p><b>Birthdate:</b>  {formattedDate}</p>
+        <p><b>Gender:</b> {user.gender}</p>
     </div>
             </div>
             </div>
