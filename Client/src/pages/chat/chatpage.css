@@ -14,6 +14,7 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    background-color: #F3F3F3;
 }
 .chatBoxTop{
     height: 100%;
@@ -24,9 +25,16 @@
 .chatOnline{
     flex: 3;
 }
+.chatMenuWarpper{
+    background-color: #C5E898;
+}
+.chatOnlineWarpper{
+    background-color: #C5E898;
+}
 .chatMenuWarpper ,.chatBoxWarpper ,.chatOnlineWarpper{
     padding: 10px;
-    height: 100%;
+    height: 100vh;
+    
 }
 .chatMenuInput{
     width: 90%;
