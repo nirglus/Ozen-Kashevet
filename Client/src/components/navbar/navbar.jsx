@@ -7,7 +7,7 @@ import { FaHandHoldingHeart } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 
 export default function Navbar(props) {
-    const { logOut, user } = useContext(UserContext);
+    const { logOut, user ,userIn} = useContext(UserContext);
 
     const collapseHandler = () => {
         props.setIsCollapsed(!props.isCollapsed);
@@ -18,7 +18,7 @@ export default function Navbar(props) {
             <button className="fixed text-3xl pt-6" onClick={collapseHandler}>
                 <GoSidebarCollapse />
             </button>
-            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-red-500 z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
+            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-slate-400 z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
                 }`}>
                 <div className="flex items-center pt-6 mb-8">
                     <span className="flex items-center font-bold pl-4">
@@ -29,28 +29,31 @@ export default function Navbar(props) {
                     </button>
                 </div>
 
-                <ul className="h-full text-lg">
-                    <NavLink to='/auth'>
-                        <li className="flex justify-center hover:bg-red-100">Auth</li>
+                <ul className=" text-lg flex flex-col justify-center ">
+                  {!userIn ? (
+                    <NavLink to="/" className="w-full">
+                      <li className="flex justify-center items-center hover:bg-red-100 cursor-pointer w-full py-2 px-4">
+                        Auth
+                      </li>
                     </NavLink>
-                    <NavLink to='/chat'>
-                        <li className="flex justify-center hover:bg-red-100">Message</li>
-                    </NavLink>
-                    {user && Object.keys(user).length > 0 && (
-                        <div>
-                            <NavLink to='/dashboard'>
-                                <li className="flex justify-center hover:bg-red-100">Dashboard</li>
-                            </NavLink>
-                        </div>
-                    )}
-                    {user && Object.keys(user).length > 0 && (
-                        <div className="fixed bottom-0 mb-10 pl-4">
-                            <button onClick={logOut} className="flex items-center">
-                                <CiLogout className="text-3xl" />
-                                <span className="ml-2">LogOut</span>
-                            </button>
-                        </div>
-                    )}
+                  ) : (
+                    <>
+                      <NavLink to="/chat" className="w-full">
+                        <li className="flex justify-center items-center hover:bg-red-100 cursor-pointer w-full py-2 px-4">
+                          Message
+                        </li>
+                      </NavLink>
+                      <NavLink to="/" className="w-full">
+                        <li className="flex justify-center items-center hover:bg-red-100 cursor-pointer w-full py-2 px-4">
+                          Dashboard
+                        </li>
+                      </NavLink>
+                      <button onClick={logOut} className="flex items-center justify-center w-full py-2 px-4">
+                        <CiLogout className="text-3xl" />
+                        <span className="ml-2">LogOut</span>
+                      </button>
+                    </>
+                  )}
                 </ul>
             </nav>
         </div>
