@@ -82,6 +82,7 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
   console.log(onlineTherapist);
   return (
     <div className='chatOnline'>
+      <h1 className='font-bold border-solid mb-4 text-center'>Online users</h1>
       {onlineUser.map((o)=>(
       <div className="chatOnlineFriends" onClick={()=>handleClick(o)}>
         <div className="chatOnlineImgContainer">
@@ -92,6 +93,7 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
         <span  className="chatOnlineName">{o.user_name}</span>
       </div>
       ))}
+      <br />
         <h1 className='font-bold border-solid border-t-2 border-t-slate-950 mb-4 text-center' >therapist:</h1> 
       {onlineTherapist.map((o)=>(
       <div className="chatOnlineFriends">
