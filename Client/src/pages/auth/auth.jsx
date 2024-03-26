@@ -7,7 +7,7 @@ import { UserContext } from "../../managers/userManager";
 
 export default function Auth() {
     const { handleRegister, handleLogin, changeHandler } = useContext(UserContext)
-    const [formMode, setFormMode] = useState(false)
+    const [formMode, setFormMode] = useState(true)
 
     const changeMode = (e) => {
         e.preventDefault()

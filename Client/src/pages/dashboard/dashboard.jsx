@@ -11,7 +11,7 @@ import { APIBaseUrl } from "../../config/baseUrl";
 import { UserContext } from "../../managers/userManager";
 import ReadHelpArticle from "../../components/readHelpArticle/ReadHelpArticle";
 import UserProfile from "../profile/UserProfile";
-
+import logoImg from '../../assets/img/logoWithText.png'
 
 export default function Dashboard() {
 
@@ -21,15 +21,8 @@ export default function Dashboard() {
     const [AIModalOpen, setAIModalOpen] = useState(false);
     const [myMeetingOpen, setMyMeetingsOpen] = useState(false)
     const [articleOpen, setArticleOpen] = useState(false);
-    const [profileOpen, setProfileOpen] = useState(false);
 
-    const openProfileModal = () => {
-        setProfileOpen(true);
-    };
 
-    const closeProfileModal = () => {
-        setProfileOpen(false);
-    };
 
 
     const openArticleModal = () => {
@@ -70,26 +63,29 @@ export default function Dashboard() {
         fetchMeetings();
     }, []);
 
-    return (<div className="px-20">
+    return (<div className="px-20 bg-[#fff]">
+<div className="w-full">
+  <div className="flex items-center justify-between">
+    <div>
+      <h1 className="font-bold text-5xl">DASHBOARD</h1>
+      <h2 className="font-semibold text-4xl">User Panel</h2>
+    </div>
+    <img className="h-20" src={logoImg} alt="Logo"></img>
+  </div>
+  <div className="w-full h-[0.2rem] bg-[#000000cf]"></div>
+</div>
 
-        <div className="w-full">
-            <h1 className=" font-bold text-5xl flex justify-start">DASHBOARD</h1>
-            <h2 className=" font-semibold text-4xl flex justify-start">User Panel</h2>
-            <div className="w-full h-[0.2rem] bg-[#000000cf]"></div>
-        </div>
-
-
-        <div className="w-full h-[82vh] items-center flex flex-wrap justify-around">
+        <div className="w-full h-[70vh] items-center flex flex-wrap justify-around">
             <section id="menu" className="flex flex-wrap justify-center w-full h-[30vh] items-center">
-                <div className="flex w-full justify-center gap-3 mb-6">
-                    <NavLink to='/chat'><button className="menuButton">Chat with a professional</button></NavLink>
-                    <button className="menuButton" onClick={openAiModal}>AI Chatbot</button>
-                    <button className="menuButton" onClick={openMeetingModal}>My Meetings</button>
+                <div className="flex w-full justify-around mb-6 text-lg">
+                    <NavLink to='/chat'><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Chat with a professional</button></NavLink>
+                    <button className="menuButton bg-[#c2efb3] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openAiModal}>AI Chatbot</button>
+                    <button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openMeetingModal}>My Meetings</button>
                 </div>
-                <div className="flex w-full justify-center gap-3">
-                    <button className="menuButton" onClick={openProfileModal}>Profile</button>
-                    <button className="menuButton" onClick={openArticleModal}>Read Helpful articles</button>
-                    <NavLink to='/therapists'><button className="menuButton">Set a meet</button></NavLink>
+                <div className="flex w-full justify-around  text-lg">
+                    <NavLink to={'/profile'}><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Profile</button></NavLink>
+                    <button className="menuButton bg-[#F96E46] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openArticleModal}>Read Helpful articles</button>
+                    <NavLink to='/therapists'><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Schedule Therapy</button></NavLink>
                 </div>
             </section>
             <Modal isOpen={AIModalOpen} onClose={closeAiModal}>
@@ -137,19 +133,7 @@ export default function Dashboard() {
                     </div>
                 </div>
             </Modal>
-            <Modal isOpen={profileOpen} onclose={closeProfileModal}>
 
-                <div>
-                    <div className="flex sticky items-center justify-between mb-4">
-
-                        <button onClick={closeProfileModal} className="justify-end w-full flex">
-                            <IoMdClose className="text-3xl hover:text-red-600 " />
-                        </button>
-                    </div>
-                    <UserProfile />
-                </div>
-
-            </Modal>
 
 
         </div>
