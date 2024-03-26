@@ -59,7 +59,7 @@ export default function Dashboard() {
         </div>
 
 
-        <div className="w-full h-[95vh] items-center flex flex-wrap justify-around">
+        <div className="w-full h-[82vh] items-center flex flex-wrap justify-around">
             <section id="menu" className="flex flex-wrap justify-center w-full h-[30vh] items-center">
                 <div className="flex w-full justify-center gap-3 mb-6">
                     <NavLink to='/chat'><button className="menuButton">Chat with a professional</button></NavLink>
