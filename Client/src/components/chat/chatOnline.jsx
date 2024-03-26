@@ -92,7 +92,7 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
         <span  className="chatOnlineName">{o.user_name}</span>
       </div>
       ))}
-        <h1 className='font-bold border-solid border-t-2 border-t-slate-950 mb-4' >doctors:</h1> 
+        <h1 className='font-bold border-solid border-t-2 border-t-slate-950 mb-4 text-center' >therapist:</h1> 
       {onlineTherapist.map((o)=>(
       <div className="chatOnlineFriends">
         <div className="chatOnlineImgContainer">
