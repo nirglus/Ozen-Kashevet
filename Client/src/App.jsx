@@ -4,8 +4,12 @@ import ChatPage from './pages/chat/chatPage'
 import Auth from './pages/auth/auth'
 import Navbar from './components/navbar/navbar'
 import Dashboard from './pages/dashboard/dashboard'
+
+import AllTerapsits from './pages/PsychoTerapist/AllTerapsits'
+
 import { UserContext } from './managers/userManager'
 import UserProfile from './pages/profile/UserProfile'
+
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -24,8 +28,9 @@ function App() {
           {userIn?(
             <>
           <Route path='/chat' element={<ChatPage />}></Route>
+          <Route path='/dashboard' element={<Dashboard />}></Route>
+          <Route path='/therapists' element={<AllTerapsits />}></Route>
           <Route path='/' element={<Dashboard />}></Route>
-          <Route path='/therapists' element={<Dashboard />}></Route>
           <Route path='/profile' element={<UserProfile />}></Route>
             </>
           ):(
@@ -37,6 +42,7 @@ function App() {
           }
 
           
+
         </Routes>
       </div>
     </BrowserRouter>
