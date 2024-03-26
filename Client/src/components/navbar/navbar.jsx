@@ -18,7 +18,7 @@ export default function Navbar(props) {
             <button className="fixed text-3xl pt-6" onClick={collapseHandler}>
                 <GoSidebarCollapse />
             </button>
-            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-slate-400 z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
+            <nav className={`animate__animated animate__faster w-1/5 h-screen fixed bg-[#29ADB2] z-50 ${props.isCollapsed ? 'animate__slideOutLeft' : 'animate__slideInLeft'
                 }`}>
                 <div className="flex items-center pt-6 mb-8">
                     <span className="flex items-center font-bold pl-4">
