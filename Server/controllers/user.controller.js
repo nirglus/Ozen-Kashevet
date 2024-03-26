@@ -1,6 +1,7 @@
 const { User } = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const {generateToken} = require("../utils/jwt");
+const { uploadToCloudinary } = require("../cloudinary/cloudinary");
 
 const register = async (req, res)=>{
     try {
@@ -45,7 +46,9 @@ const showUser = async (req, res) => {
                  birth_date: user.birth_date ,
                  profileImg: user.profileImg,
                  email: user.email,
-                 id:user._id
+                 id:user._id,
+                 bio:user.bio,
+                 gender:user.gender
                 });
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -57,7 +60,7 @@ const getUsers = async (req, res) => {
     const role = req.query.role;
     try {
         let users;
-        let projection = { user_name: 1, email: 1, bio: 1, gender: 1, _id: 1 }; 
+        let projection = { user_name: 1, email: 1, bio: 1, gender: 1, _id: 1 ,profileImg: 1}; 
         
         if (role === 'therapist') {
             users = await User.find({ role: 'therapist' }, projection);
@@ -114,4 +117,22 @@ const getUsersinQuary = async (req, res) => {
       res.status(500).json(err);
     }
   };
-module.exports = { register , login, deleteUser, updateUser, getUsers, showUser , getUsersinQuary}
+
+  const uploadUserImage = async(req ,res)=>{
+    try{
+        const data = await uploadToCloudinary(req.file.path , "user-images")
+        //Save Image Url and PubliId to the database
+        const saveImg = await User.findByIdAndUpdate(
+            {_id: req.user.id},
+            {
+                $set: {
+                    profileImg: data.url,
+                },
+            }
+        );
+        res.status(200).send("user image upladed with success!")
+    }catch(err){
+        res.status(400).send(err)
+    }
+}
+module.exports = { register , login, deleteUser, updateUser, getUsers, showUser , getUsersinQuary ,uploadUserImage}

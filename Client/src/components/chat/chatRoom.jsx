@@ -7,10 +7,20 @@ export default function ChatRoom({messages , own}) {
   return (
     <div className={own? "messege own" : "messege"}>
       <div className="messegeTop">
-        <img src={logo} alt="" className="messegeImg"/>
+        {!own?(
+        <>
+        <img src={logo} alt="" className= "messegeImg"/>
         <p className="messegeText">
-          {messages?.message_content}
+        {messages?.message_content}
         </p>
+        </>
+        ):(
+        <>
+        <p className="messegeTextOwn">
+        {messages?.message_content}
+        </p>
+        <img src={logo} alt="" className= "messegeImgOwn"/>
+        </>)}
         </div>
       <div className="messegeButtom">{format(messages?.createdAt)}</div>
     </div>

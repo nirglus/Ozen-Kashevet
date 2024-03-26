@@ -16,8 +16,8 @@
     .messegeText{
         padding: 10px;
         border-radius: 20px;
-        background-color: #1877f2;
-        color: white;
+        background-color: #C5E898;
+        color: rgb(49, 49, 49);
         max-width: 300px;
     }
     
@@ -28,9 +28,23 @@
     
     .messege.own{
         align-items: flex-end;
+
     }
-    
     .messege.own .messegeText{
-        background-color:rgb(245, 241, 241) ;
+        background-color:#29ADB2 ;
         color: black;
+    }
+    .messegeTextOwn{
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #29ADB2;
+        color: rgb(49, 49, 49);
+        max-width: 300px;
+        margin-right: 10px;
+    }
+    .messegeImgOwn{
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
     }
