@@ -23,7 +23,7 @@ export default {
         90: '90vh',
         95: '95vh',
       },
-      width: {
+      color: {
         120: '120%'
       }
 
