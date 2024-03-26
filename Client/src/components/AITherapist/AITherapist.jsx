@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import OpenAI from "openai";
 import { API_KEY } from "../../config/openAIConfig";
 import ai_logo from '../../assets/img/AI-Therapist.png'
@@ -15,6 +15,7 @@ function AITherapist() {
     const [userInput, setUserInput] = useState("");
     const [therapistResponses, setTherapistResponses] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const refScroll = useRef();
 
     const callOpenAIAPI = async () => {
         if (userInput.trim() === "") return;
@@ -42,29 +43,22 @@ function AITherapist() {
     };
 
     useEffect(() => {
-        const scrollToBottom = () => {
-            const chatPanel = document.getElementById("chatPanel");
-            if (chatPanel) {
-                chatPanel.scrollTop = chatPanel.scrollHeight;
-            }
-        };
-
-        scrollToBottom();
+        refScroll.current?.scrollIntoView({ behavior: "smooth" })
     }, [therapistResponses]);
 
     return (
         <>
             <div className="h-[50%] w-full border p-2 border-black overflow-y-scroll" id="chatPanel">
                 {therapistResponses.map((message, index) => (
-                    <div key={index} style={{ marginBottom: "10px" }}>
+                    <div ref={refScroll} key={index} style={{ marginBottom: "10px" }}>
                         {message.role === "user" ?(
                             
                             <div>
-                                <strong className="flex items-center"><img className="w-8 h-8 rounded-full object-cover mr-1" src={logo}/>You:</strong> {message.content}
+                                <strong className="flex items-center"><img className="w-8 h-8 rounded-full object-cover mr-1" src={logo}/>You:</strong> <div className="p-4 rounded-lg bg-blue-300 text-gray-800 mt-2">{message.content}</div>
                             </div>
                         ) : (
                             <div>
-                                    <strong className="flex items-center"><img className="w-8 h-8 rounded-full object-cover mr-1" src={ai_logo}/>AI Therapist:</strong> {message.content}
+                                    <strong className="flex items-center"><img className="w-8 h-8 rounded-full object-cover mr-1" src={ai_logo}/>AI Therapist:</strong> <div className="p-4 rounded-lg bg-green-300 text-gray-800 mt-2">{message.content}</div>
                             </div>
                         )}
                     </div>
