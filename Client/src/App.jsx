@@ -8,6 +8,7 @@ import Dashboard from './pages/dashboard/dashboard'
 import AllTerapsits from './pages/PsychoTerapist/AllTerapsits'
 
 import { UserContext } from './managers/userManager'
+import UserProfile from './pages/profile/UserProfile'
 
 
 function App() {
@@ -27,13 +28,10 @@ function App() {
           {userIn?(
             <>
           <Route path='/chat' element={<ChatPage />}></Route>
-
-          <Route path='/auth' element={<Auth />}></Route>
           <Route path='/dashboard' element={<Dashboard />}></Route>
           <Route path='/therapists' element={<AllTerapsits />}></Route>
-
           <Route path='/' element={<Dashboard />}></Route>
-
+          <Route path='/profile' element={<UserProfile />}></Route>
             </>
           ):(
             <>
