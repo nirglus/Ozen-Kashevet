@@ -6,24 +6,24 @@ import "./chatOnline.css"
 import { UserContext } from '../../managers/userManager';
 export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
   const { user , token } = useContext(UserContext)
-  const [Psyco , setPsyco] = useState([]);
+  const [Clients , setClients] = useState([]);
   const [therapist , setTherapist] = useState([]);
   const [onlineUser , setOnlineUsers] = useState([])
   const [onlineTherapist , setOnlineTherapist] = useState([])
 
   useEffect(() => {
-    const getPsycoUsers = async () => {
+    const getClientsUsers = async () => {
       try {
         const res = await axios.get(`${APIBaseUrl}/users/find?role=user`);
         // Assuming res.data.users is an array of user objects
         const filteredUsers = res.data.users.filter((username) => username._id !== user.id);
-        setPsyco(filteredUsers);
+        setClients(filteredUsers);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    getPsycoUsers();
+    getClientsUsers();
   }, [APIBaseUrl, user.id, currentId]);
 
   useEffect(() => {
@@ -42,18 +42,18 @@ export default function ChatOnline({onlineUsers, currentId , setCurrentChat}) {
   }, [APIBaseUrl, user.id, currentId]);
   
   useEffect(() => {
-    const filteredFriends = therapist.filter(Psyco => {
-      return onlineUsers.some(onlineTherapist => onlineTherapist.userId === Psyco._id);
+    const filteredFriends = therapist.filter(Clients => {
+      return onlineUsers.some(onlineTherapist => onlineTherapist.userId === Clients._id);
     });
     setOnlineTherapist(filteredFriends);
-  }, [Psyco, onlineUsers]);
+  }, [Clients, onlineUsers]);
 
   useEffect(() => {
-    const filteredFriends = Psyco.filter(Psyco => {
-      return onlineUsers.some(onlineUser => onlineUser.userId === Psyco._id);
+    const filteredFriends = Clients.filter(Clients => {
+      return onlineUsers.some(onlineUser => onlineUser.userId === Clients._id);
     });
     setOnlineUsers(filteredFriends);
-  }, [Psyco, onlineUsers]);
+  }, [Clients, onlineUsers]);
   const handleClick = async(user)=>{
     try{
       const res = await axios.get(`${APIBaseUrl}/room/find/${user._id}`, {
