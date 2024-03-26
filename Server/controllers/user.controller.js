@@ -48,7 +48,8 @@ const showUser = async (req, res) => {
                  email: user.email,
                  id:user._id,
                  bio:user.bio,
-                 gender:user.gender
+                 gender:user.gender,
+                 role: user.role
                 });
     } catch (error) {
       console.error("Error fetching user:", error);
