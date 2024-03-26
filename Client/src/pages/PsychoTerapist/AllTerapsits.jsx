@@ -10,8 +10,6 @@ export default function AllTerapsits() {
     const getTherapist = async () => {
         try {
             const res = await axios.get(`${APIBaseUrl}/users/find?role=therapist`);
-            // Assuming res.data.users is an array of user objects
-            console.log(res.data.users);
             setTherapists(res.data.users);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -35,13 +33,12 @@ export default function AllTerapsits() {
                     : null
             }
             {
-                therapists.map((therapist, i) => (
+                therapists.map(therapist => (
                     <div onClick={() => openModal(therapist)} className='border bg-black text-white w-96 p-4 flex flex-col gap-2' key={therapist._id}>
                         <h1 className='text-4xl'>{therapist.user_name}</h1>
                         <p><b>Gendet: </b> {therapist.gender=='M'?'Male':'Female'}</p>
                         <p><b>Email: </b> {therapist.email}</p>
                         <p><b>License: </b> {therapist.bio}</p>
-                        {/* <p>{therapist.email}</p> */}
                     </div>
                 ))
             }
