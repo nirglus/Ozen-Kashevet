@@ -41,7 +41,6 @@ export default function UserProvider({children}) {
     };
     
     const getUser = async()=>{
-      console.log(token);
       try {
         const res = await axios.get(`${APIBaseUrl}/users/`,{
           headers: {
@@ -50,7 +49,6 @@ export default function UserProvider({children}) {
         });
         setUser(res.data);
         setUserIn(true)
-        console.log(res.data)
       } catch (error) {
         console.log(error);
       }
@@ -66,14 +64,13 @@ export default function UserProvider({children}) {
     const changeHandler= (e)=>{
       userData[e.target.name] = e.target.value;
       setUserData({ ...userData });
-      console.log(userData);
     }
     
     const logOut = ()=>{
       localStorage.removeItem("token")
       setUser({})
       setUserIn(false)
-      alert("you log out");
+      console.log("you logged out");
     }
     
     const share = {

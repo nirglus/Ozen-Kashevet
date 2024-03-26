@@ -6,7 +6,7 @@ import axios from "axios";
 import { io } from "socket.io-client"
 import { UserContext } from '../../managers/userManager';
 import { APIBaseUrl } from '../../config/baseUrl';
-
+import "./chatpage.css"
 
 export default function chatPage() {
     const [conversations, setConversations] = useState([]);
@@ -16,7 +16,7 @@ export default function chatPage() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const socket = useRef()
-    const { user } = useContext(UserContext)
+    const { user , token} = useContext(UserContext)
     const scrollRef = useRef()
     //get messages
     //!copied to chatRoom
@@ -25,13 +25,20 @@ export default function chatPage() {
         socket.current.on("getMessage", data => {
             setArrivalMessages({
                 sender: data.senderId,
-                text: data.text,
+                message_content: data.message_content,
                 createdAt: Date.now(),
             })
         })
     }
         , [])
-
+        const handleChatClick = (clickedChat) => {
+            if (currentChat && currentChat === clickedChat) {
+                // Clicked the same chat again, set currentChat to null
+                setCurrentChat(null);
+            } else {
+                setCurrentChat(clickedChat);
+            }
+        };
     //if message live 
     //!copied to chatRoom
     useEffect(() => {
@@ -48,7 +55,6 @@ export default function chatPage() {
         })
     }
         , [user])
-    console.log(onlineUsers);
 
     //! copied to chatPrev
     useEffect(() => {
@@ -66,7 +72,6 @@ export default function chatPage() {
         };
         getsConverstions();
     }, [user.id]);
-    console.log(conversations);
     //! copied to chatRoom
     useEffect(() => {
         const getMessages = async () => {
@@ -79,24 +84,26 @@ export default function chatPage() {
         };
         getMessages();
     }, [currentChat]);
-
+    console.log(currentChat);
     //!copied to  chat Room
     const handleSubmit = async (e) => {
         e.preventDefault()
         const mess = {
-            sender: user.id,
-            text: newMessages,
-            conversetionId: currentChat._id
+            message_content: newMessages,
+            room_id: currentChat._id
         }
         const receiverId = currentChat.members.find(member => member !== user.id)
         socket.current.emit("sendMessage", {
             senderId: user.id,
             receiverId,
-            text: newMessages
+            message_content: newMessages
         })
         try {
-            const res = await axios.post(`${APIBaseUrl}/mess`, mess);
-            console.log(res);
+            const res = await axios.post(`${APIBaseUrl}/messages`, mess , {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
             setMessages([...messages, res.data]);
             setNewMessages("");
         } catch (err) {
@@ -107,25 +114,24 @@ export default function chatPage() {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages]);
-
     return (
         <>
             <div className="messengers">
-                <div className="border p-8 flex-1 h-screen">
+                <div className="chatMenu">
                     <div className="chatMenuWarpper">
                         <input
                             type="text"
                             placeholder="search for friends"
                             className="chatMenuInput"
                         />
-                        {conversations.map((c, cINdex) => (
-                            <div onClick={() => setCurrentChat(c)} key={cINdex}>
-                                <ChatPrev conversation={c} currentUser={user} />
-                            </div>
+                        {conversations.map((c) => (
+                             <div onClick={() => handleChatClick(c)} >
+                             <ChatPrev conversation={c} currentUser={user} />
+                         </div>
                         ))}
                     </div>
                 </div>
-                <div className="border p-8 flex-three h-screen">
+                <div className="chatBox">
                     <div className="chatBoxWarpper">
                         {currentChat ? (
                             <>
@@ -153,11 +159,11 @@ export default function chatPage() {
                         )}
                     </div>
                 </div>
-                {/* <div className="border p-8 flex-50 h-screen">
+                <div className="chatOnline">
                     <div className="chatOnlineWarpper">
                         <ChatOnline onlineUsers={onlineUsers} currentId={user.id} setCurrentChat={setCurrentChat} />
                     </div>
-                </div> */}
+                </div>
             </div>
         </>
     );
