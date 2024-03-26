@@ -43,9 +43,31 @@ function AITherapist() {
     }, [therapistResponses]);
 
     return (
+        // <>
+        //     <div id="chatPanel" style={{ height: "600px", overflowY: "auto", border: "1px solid #ccc", padding: "10px" }}>
+        //         {therapistResponses.map((message, index) => (
+        //             <div key={index} style={{ marginBottom: "10px" }}>
+        //                 {message.role === "user" ? (
+        //                     <div>
+        //                         <strong>You:</strong> {message.content}
+        //                     </div>
+        //                 ) : (
+        //                     <div>
+        //                         <strong>AI Therapist:</strong> {message.content}
+        //                     </div>
+        //                 )}
+        //             </div>
+        //         ))}
+        //     </div>
+        //     <div style={{ marginTop: "10px" }}>
+        //         <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder='Please feel free to share with me what you feel' cols="50" rows="3"></textarea>
+        //         <br />
+        //         <button onClick={callOpenAIAPI}>Send</button>
+        //     </div>
+        // </>
         <>
-            <div id="chatPanel" style={{ height: "600px", overflowY: "auto", border: "1px solid #ccc", padding: "10px" }}>
-                {therapistResponses.map((message, index) => (
+        <div className="h-[50%] w-full border border-black overflow-y-scroll">
+        {therapistResponses.map((message, index) => (
                     <div key={index} style={{ marginBottom: "10px" }}>
                         {message.role === "user" ? (
                             <div>
@@ -58,12 +80,11 @@ function AITherapist() {
                         )}
                     </div>
                 ))}
-            </div>
-            <div style={{ marginTop: "10px" }}>
-                <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder='Please feel free to share with me what you feel' cols="50" rows="3"></textarea>
-                <br />
-                <button onClick={callOpenAIAPI}>Send</button>
-            </div>
+        </div>
+        <div>
+            <input className="w-[90%] h-10 border border-black p-2" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder='Please feel free to share with me what you feel'/>
+            <button className="bg-green-500 p-2 border border-black" onClick={callOpenAIAPI}>Send</button>
+        </div>
         </>
     );
 }

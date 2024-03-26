@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import Modal from "./modal"; // Assuming you have a Modal component
 import { IoChatbubble } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
+import AITherapist from "../../components/AITherapist/AITherapist"
 
 export default function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,14 +39,14 @@ export default function Dashboard() {
                     </div>
                     <button className="text-3xl" onClick={closeModal}><IoMdClose className="hover:text-red-600" /></button>
                 </div>
+                <AITherapist />
+                {/* <div className="h-[50%] w-full border border-black">
 
-                <div className="h-[50%] w-full border border-black">
-
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <input className="w-[90%] h-10 border border-black p-2" placeholder="Type Your Message:"></input>
                     <button className="bg-green-500 p-2 border border-black">Send</button>
-                </div>
+                </div> */}
             </Modal>
         </div>
     );
