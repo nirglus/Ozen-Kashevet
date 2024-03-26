@@ -202,23 +202,24 @@ export default function Register() {
                             </>
                         )}
                     </Listbox>
-                    <div>
+                    {/* <div>
                         <label htmlFor='psycho'>man</label>
                         <input id='psycho' type='radio' name='gender' value={"M"}></input>
                         <label htmlFor='user'>women</label>
                         <input id='user' type='radio' name='gender' value={"W"}></input>
                         <label htmlFor='user'>other</label>
                         <input id='user' type='radio' name='gender' value={"O"}></input>
-                    </div>
+                    </div> */}
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                         Role
                     </label>
-                    <div>
-                        <label htmlFor='psycho'>Psycho</label>
+                    <div className='flex gap-2'>
+                        <label htmlFor='psycho'>Therapist</label>
                         <input id='psycho' type='radio' name='role' value={"PF"}></input>
                         <label htmlFor='user'>User</label>
                         <input id='user' type='radio' name='role' value={"user"}></input>
                     </div>
+                    <p><b>NOTE:</b> In order to register as a therapist you'll need further validation with our staff.</p>
                     <div>
                         <button
                             onClick={handleRegister}
