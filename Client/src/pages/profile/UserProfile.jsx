@@ -7,6 +7,7 @@ import { APIBaseUrl } from '../../config/baseUrl';
 import axios from 'axios';
 import { MdModeEditOutline } from "react-icons/md";
 import logo from '../../assets/img/Anonimos.png'
+import TherapistSchedule from '../../components/TherapistSchedule/TherapistSchedule';
 
 export default function UserProfile() {
   const { user, token , getUser }=useContext(UserContext);
@@ -106,6 +107,10 @@ console.log(user);
     </div>
             </div>
             </div>
+            {user.role === "therapist" && (
+              <TherapistSchedule user={user}/>
+            )}
+
     </div>
   )
 }

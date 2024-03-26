@@ -37,7 +37,7 @@ export default function AllTerapsits() {
                     therapists.map(therapist => (
                         <div onClick={() => openModal(therapist)} className='card hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all  bg-white border w-96 p-4 flex flex-col gap-2  h-33 rounded-lg' key={therapist._id}>
                             <h1 className='text-4xl'>{therapist.user_name}</h1>
-                            <p><b>Gendet: </b> {therapist.gender == 'M' ? 'Male' : 'Female'}</p>
+                            <p><b>Gender: </b> {therapist.gender == 'M' ? 'Male' : 'Female'}</p>
                             <p><b>Email: </b> {therapist.email}</p>
                             <p><b>License: </b> {therapist.bio}</p>
                         </div>
