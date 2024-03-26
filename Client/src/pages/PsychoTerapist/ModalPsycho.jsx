@@ -50,23 +50,25 @@ const ModalPsycho = ({ setModalOpen, therapist }) => {
                     <ModalSuccess setModalOpen={setModalOpen} setIsSetMeUp={setIsSetMeUp} />
                     : null
             }
-            <div className="bg-white p-6 rounded-lg shadow-lg h-fit w-[50vw] flex  flex-wrap flex-col">
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit w-[40vw] flex  flex-wrap flex-col">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <h2 className="text-lg font-semibold">{therapist.user_name}</h2>
                     </div>
                     <button onClick={() => setModalOpen(false)} className="text-3xl" ><IoMdClose className="hover:text-red-600" /></button>
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col gap-3'>
                     {
                         avaibleMeetings.map((meeting, i) => (
-                            <div className='border flex justify-between items-center p-5' key={i}>
+                            <div className='border border-green-50 shadow-xl rounded-lg flex justify-between items-center p-5' key={i}>
                                 <div className='flex flex-col gap-2'>
-                                    <h1>Avaible meeting</h1>
-                                    <p>{formatDateAndTime(meeting.date)}</p>
+                                    <h1 className='text-green-400 font-semibold'>Avaible meeting</h1>
+                                    <div className=' bg-gray-100 border p-4  rounded-lg'>
+                                        <p>{formatDateAndTime(meeting.date)}</p>
+                                    </div>
                                 </div>
                                 <div className='items-center'>
-                                    <button onClick={() => setMeUp(meeting)}>Set me up!</button>
+                                    <button class="text-primary  p-2 rounded-lg hover:bg-green-700  transition ease-out duration-500 bg-green-500 text-white" onClick={() => setMeUp(meeting)}>Set me up!</button>
                                 </div>
                             </div>
                         ))
