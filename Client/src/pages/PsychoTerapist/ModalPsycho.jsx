@@ -50,7 +50,7 @@ const ModalPsycho = ({ setModalOpen, therapist }) => {
                     <ModalSuccess setModalOpen={setModalOpen} setIsSetMeUp={setIsSetMeUp} />
                     : null
             }
-            <div className="bg-white p-6 rounded-lg shadow-lg h-fit w-[40vw] flex  flex-wrap flex-col">
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit max-h-[80vh] w-[40vw] flex  flex-wrap flex-col overflow-y-scroll">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <h2 className="text-lg font-semibold">{therapist.user_name}</h2>

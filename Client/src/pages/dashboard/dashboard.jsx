@@ -78,14 +78,14 @@ export default function Dashboard() {
         <div className="w-full h-[70vh] items-center flex flex-wrap justify-around">
             <section id="menu" className="flex flex-wrap justify-center w-full h-[30vh] items-center">
                 <div className="flex w-full justify-around mb-6 text-lg">
-                    <NavLink to='/chat'><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Chat with a professional</button></NavLink>
-                    <button className="menuButton bg-[#c2efb3] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openAiModal}>AI Chatbot</button>
-                    <button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openMeetingModal}>My Meetings</button>
+                    <NavLink to='/chat'><button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Chat with a professional</button></NavLink>
+                    <button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openAiModal}>AI Chatbot</button>
+                    <button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openMeetingModal}>My Meetings</button>
                 </div>
                 <div className="flex w-full justify-around  text-lg">
-                    <NavLink to={'/profile'}><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Profile</button></NavLink>
-                    <button className="menuButton bg-[#F96E46] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openArticleModal}>Read Helpful articles</button>
-                    <NavLink to='/therapists'><button className="menuButton bg-[#EDD382] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Schedule Therapy</button></NavLink>
+                    <NavLink to={'/profile'}><button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Profile</button></NavLink>
+                    <button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300" onClick={openArticleModal}>Read Helpful articles</button>
+                    <NavLink to='/therapists'><button className="menuButton bg-[#C5E898] hover:shadow-lg hover:-translate-y-1 hover:opacity-75 transition-all shadow-xl shadow-slate-300">Schedule Therapy</button></NavLink>
                 </div>
             </section>
             <Modal isOpen={AIModalOpen} onClose={closeAiModal}>
