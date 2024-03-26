@@ -28,7 +28,7 @@ export default function Dashboard() {
                 <div className="flex w-full justify-center gap-3">
                     <NavLink to='/chat'><button className="menuButton">My Chats</button></NavLink>
                     <button className="menuButton">Read Helpful articles</button>
-                    <button className="menuButton">PLACEHOLDER</button>
+                    <NavLink to='/therapists'><button className="menuButton">Set a meet</button></NavLink>
                 </div>
             </section>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
