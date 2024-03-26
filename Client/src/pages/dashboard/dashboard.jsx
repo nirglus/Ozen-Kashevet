@@ -9,7 +9,8 @@ import AITherapist from "../../components/AITherapist/AITherapist";
 import axios from "axios";
 import { APIBaseUrl } from "../../config/baseUrl";
 import { UserContext } from "../../managers/userManager";
-
+import ReadHelpArticle from "../../components/readHelpArticle/ReadHelpArticle";
+import UserProfile from "../profile/UserProfile";
 
 
 export default function Dashboard() {
@@ -19,6 +20,25 @@ export default function Dashboard() {
     const [meetingsData, setMeetingsData] = useState([]);
     const [AIModalOpen, setAIModalOpen] = useState(false);
     const [myMeetingOpen, setMyMeetingsOpen] = useState(false)
+    const [articleOpen, setArticleOpen] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
+
+    const openProfileModal = () => {
+        setProfileOpen(true);
+    };
+
+    const closeProfileModal = () => {
+        setProfileOpen(false);
+    };
+
+
+    const openArticleModal = () => {
+        setArticleOpen(true);
+    };
+
+    const closeArticleModal = () => {
+        setArticleOpen(false);
+    };
 
     const openMeetingModal = () => {
         setMyMeetingsOpen(true);
@@ -67,8 +87,8 @@ export default function Dashboard() {
                     <button className="menuButton" onClick={openMeetingModal}>My Meetings</button>
                 </div>
                 <div className="flex w-full justify-center gap-3">
-                    <NavLink to='/chat'><button className="menuButton">Profile</button></NavLink>
-                    <button className="menuButton">Read Helpful articles</button>
+                    <button className="menuButton" onClick={openProfileModal}>Profile</button>
+                    <button className="menuButton" onClick={openArticleModal}>Read Helpful articles</button>
                     <NavLink to='/therapists'><button className="menuButton">Set a meet</button></NavLink>
                 </div>
             </section>
@@ -101,6 +121,37 @@ export default function Dashboard() {
                 })}
 
             </Modal>
+            <Modal isOpen={articleOpen} onClose={closeArticleModal}>
+                <div className="bg-white rounded-lg shadow-xl p-6 max-h-full overflow-y-auto">
+                    <div className="flex sticky items-center justify-between mb-4">
+                        <div className="flex items-center">
+                            <IoChatbubble className="mr-2 text-xl" />
+                            <h2 className="text-lg font-semibold">Helpful Articles</h2>
+                        </div>
+                        <button onClick={closeArticleModal}>
+                            <IoMdClose className="text-3xl hover:text-red-600" />
+                        </button>
+                    </div>
+                    <div className="overflow-hidden">
+                        <ReadHelpArticle />
+                    </div>
+                </div>
+            </Modal>
+            <Modal isOpen={profileOpen} onclose={closeProfileModal}>
+
+                <div>
+                    <div className="flex sticky items-center justify-between mb-4">
+
+                        <button onClick={closeProfileModal} className="justify-end w-full flex">
+                            <IoMdClose className="text-3xl hover:text-red-600 " />
+                        </button>
+                    </div>
+                    <UserProfile />
+                </div>
+
+            </Modal>
+
+
         </div>
 
 
