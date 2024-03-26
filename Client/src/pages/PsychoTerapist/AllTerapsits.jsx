@@ -5,7 +5,7 @@ import ModalPsycho from './ModalPsycho';
 
 export default function AllTerapsits() {
     const [therapists, setTherapists] = useState([]);
-    const [therapist,setTherapist ] = useState()
+    const [therapist, setTherapist] = useState()
     const [isModalOpen, setModalOpen] = useState(false)
     const getTherapist = async () => {
         try {
@@ -36,8 +36,11 @@ export default function AllTerapsits() {
             }
             {
                 therapists.map((therapist, i) => (
-                    <div onClick={() => openModal(therapist)} className='border bg-black text-white w-96 p-4' key={therapist._id}>
-                        <h1>{therapist.user_name}</h1>
+                    <div onClick={() => openModal(therapist)} className='border bg-black text-white w-96 p-4 flex flex-col gap-2' key={therapist._id}>
+                        <h1 className='text-4xl'>{therapist.user_name}</h1>
+                        <p><b>Gendet: </b> {therapist.gender=='M'?'Male':'Female'}</p>
+                        <p><b>Email: </b> {therapist.email}</p>
+                        <p><b>License: </b> {therapist.bio}</p>
                         {/* <p>{therapist.email}</p> */}
                     </div>
                 ))
