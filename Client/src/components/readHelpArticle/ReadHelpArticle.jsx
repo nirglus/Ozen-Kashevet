@@ -3,7 +3,7 @@ import { articles } from './ArticalData'
 
 export default function ReadHelpArticle() {
   return (
-    <div className='flex flex-wrap justify-center items-start h-screen p-4 overflow-y-auto'>
+    <div className='flex flex-wrap justify-center items-start h-full p-4 overflow-y-auto'>
       {articles.map((a, index) => (
         <div key={index} className='max-w-sm rounded overflow-hidden shadow-lg m-4'>
           <img src={a.img} alt={a.title} className='w-full h-48 object-cover' />
