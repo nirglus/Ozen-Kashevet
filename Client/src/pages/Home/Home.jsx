@@ -1,19 +1,20 @@
 import { NavLink } from "react-router-dom";
+import "./Home.css";
 
 function Home() {
   return (
-    <div className="flex">
-      <section className="l-side">
+    <div className="home flex h-screen">
+      <section className="l-side flex flex-col items-center p-7 justify-center gap-9">
         <div className="headings">
-            <h1>Finding balance <span>In Mental</span> <span>Wellness.</span></h1>
+            <p className="flex flex-col text-9xl text font-semibold text-cyan-700">Finding <span>Balance</span> <span className="text-emerald-400">In Mental</span> <span className="text-lime-400">Wellness.</span></p>
         </div>
-        <div className="texts flex">
-            <h2>Discover calm ignite resilience thrive in harmony.</h2>
-            <p>We understand the importance of prioritizing mental health and offer a supportive community and resources to guide you on your path to inner peace.</p>
+        <div className="texts flex gap-14">
+            <h2 className="text-emerald-400 font-medium w-36">Discover calm, ignite resilience thrive in harmony.</h2>
+            <p className="text-cyan-700 font-medium w-72">We understand the importance of prioritizing mental health and offer a supportive community and resources to guide you on your path to inner peace.</p>
         </div>
-        <button><NavLink to="/">Join us</NavLink></button>
+        <button className="bg-cyan-700 py-4 px-8 rounded-2xl w-11/12"><NavLink to="/" className="text-lime-400 uppercase font-extrabold">Join us</NavLink></button>
       </section>
-      <section className="r-side flex">
+      <section className="r-side flex items-end">
         <div className="flex flex-col">
             <div className="upper flex">
                 <h1>20 <span>+</span></h1>
