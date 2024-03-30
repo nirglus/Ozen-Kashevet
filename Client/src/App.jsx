@@ -4,6 +4,7 @@ import ChatPage from './pages/chat/chatPage'
 import Auth from './pages/auth/auth'
 import Navbar from './components/navbar/navbar'
 import Dashboard from './pages/dashboard/dashboard'
+import Home from './pages/Home/Home'
 
 import AllTerapsits from './pages/PsychoTerapist/AllTerapsits'
 
@@ -36,7 +37,7 @@ function App() {
           ):(
             <>
           <Route path='/' element={<Auth />}></Route>
-          <Route path='/home'></Route>
+          <Route path='/home' element={<Home />}></Route>
             </>
           )
           }
