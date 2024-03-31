@@ -96,7 +96,6 @@ export default function chatPage() {
     };
     getMessages();
   }, [currentChat]);
-  console.log(ChosseUser);
   //!copied to  chat Room
   const handleSubmit = async (e) => {
     e.preventDefault();
