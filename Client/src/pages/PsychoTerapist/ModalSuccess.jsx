@@ -13,7 +13,7 @@ export default function ModalSuccess({ setIsSetMeUp, setModalOpen }) {
             <div className="bg-white p-6 rounded-lg shadow-lg h-fit w-fit flex  flex-wrap flex-col">
                 <div className="flex items-center justify-between gap-7">
                     <div className="flex items-center ">
-                        <h2 className="text-lg font-semibold">we sign you up!</h2>
+                        <h2 className="text-lg font-semibold">We've signed you up!</h2>
                     </div>
                     <button className="text-3xl" >
                         <FaCheck onClick={closeModales} className="hover:text-green-600" />
