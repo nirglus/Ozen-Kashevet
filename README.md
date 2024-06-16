@@ -18,6 +18,8 @@ Users can schedule anonymous therapy sessions with licensed therapists to discus
 ### Peer Support
 Our platform enables users to engage in peer-to-peer support by connecting with others who have similar experiences. This allows for sharing of coping strategies, encouragement, and empathy.
 
+<img width="960" alt="oz-chat" src="https://github.com/nirglus/Ozen-Kashevet/assets/119694737/d6d32948-fbc1-4c37-bf78-eb0c63d96d19">
+
 ### AI Chatbot Therapist
 We've integrated an AI chatbot therapist capable of providing immediate support and guidance for individuals in need of short-term therapy solutions.
 
