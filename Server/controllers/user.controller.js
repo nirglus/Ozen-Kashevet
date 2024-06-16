@@ -12,8 +12,7 @@ const register = async (req, res)=>{
         const token = generateToken({id: newUser._id, email: newUser.email, role:newUser.role})
         res.send({message: "User registered!", user: newUser, token: token})
     } catch (error) {
-        console.log(res);
-        console.log(error);
+        console.log({error});
         res.status(400).send("Error");
     }
 }

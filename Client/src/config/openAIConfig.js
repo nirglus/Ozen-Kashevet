@@ -1,2 +1,2 @@
-const API_KEY = "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" // mafioz
+const API_KEY = import.meta.env.VITE_API_KEY
 export {API_KEY};
