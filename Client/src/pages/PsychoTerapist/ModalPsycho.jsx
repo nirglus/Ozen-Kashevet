@@ -50,7 +50,7 @@ const ModalPsycho = ({ setModalOpen, therapist }) => {
                     <ModalSuccess setModalOpen={setModalOpen} setIsSetMeUp={setIsSetMeUp} />
                     : null
             }
-            <div className="bg-white p-6 rounded-lg shadow-lg h-fit max-h-[80vh] w-[40vw] flex  flex-wrap flex-col overflow-y-scroll">
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit max-h-[80vh] w-[40vw] flex flex-col overflow-y-scroll">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <h2 className="text-lg font-semibold">{therapist.user_name}</h2>
@@ -62,7 +62,7 @@ const ModalPsycho = ({ setModalOpen, therapist }) => {
                         avaibleMeetings.map((meeting, i) => (
                             <div className='border border-green-50 shadow-xl rounded-lg flex justify-between items-center p-5' key={i}>
                                 <div className='flex flex-col gap-2'>
-                                    <h1 className='text-green-400 font-semibold'>Avaible meeting</h1>
+                                    <h1 className='text-green-400 font-semibold'>Available meeting</h1>
                                     <div className=' bg-gray-100 border p-4  rounded-lg'>
                                         <p>{formatDateAndTime(meeting.date)}</p>
                                     </div>
