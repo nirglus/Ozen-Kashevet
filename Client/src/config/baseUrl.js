@@ -1,2 +1,2 @@
-const APIBaseUrl ='http://localhost:2500/api/v1'
+const APIBaseUrl = import.meta.env.VITE_API_URL
 export {APIBaseUrl}
