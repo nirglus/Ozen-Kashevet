@@ -25,7 +25,7 @@ export default function chatPage() {
   //get messages
   //!copied to chatRoom
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io(import.meta.env.VITE_SOCKET_IO_URL);
     socket.current.on("getMessage", (data) => {
       setArrivalMessages({
         sender: data.senderId,

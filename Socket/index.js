@@ -1,8 +1,4 @@
-const io = require("socket.io")(8900, {
-    cors:{
-        origin:"http://localhost:5173"
-    }
-});
+const {io} = require("./config/index")
 
 let users = []
 
@@ -20,7 +16,7 @@ const getUser = (userId)=>{
 }
 io.on("connection", (socket) => {
     //when connects
-    console.log("a user connect");
+    console.log("A user has connected");
     //take userId and socketId from users
     socket.on("addUser" , userId=>{
         if(!userId){
@@ -41,14 +37,14 @@ io.on("connection", (socket) => {
                 message_content,
             });
         } else {
-            console.log("cant send");
+            console.log("Failed to send message");
             // Handle case where receiver is not found, maybe send an error message
         }
     });
 
     //when disconects
     socket.on("disconnect" , ()=>{
-        console.log("a user disconnect");
+        console.log("A user has disconnected");
         DisconenctUser(socket.id)
         io.emit("getUsers" , users)
     })
