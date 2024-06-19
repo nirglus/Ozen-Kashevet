@@ -6,7 +6,7 @@ Welcome to Ozen Kashevet, a project developed during the Wix hackathon aimed at 
 
 ## Project Overview
 
-Ozen Kashevet is designed to address the mental health needs of individuals and warriors affected by the war between Israel and Hamas, as well as those impacted by exposure to distressing content. Our platform facilitates communication between users and therapists, allowing for confidential conversations and access to professional support.
+Ozen Kashevet is designed to address the mental health needs of individuals and warriors affected by the war, as well as those impacted by exposure to distressing content. Our platform facilitates communication between users and therapists, allowing for confidential conversations and access to professional support.
 
 ## Features
 
